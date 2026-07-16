@@ -19,7 +19,7 @@ public class Elevation_Exit : MonoBehaviour
             {
                 boundary.enabled = false;//离开山脉开启
             }
-            collision.gameObject.GetComponent<SpriteRenderer>().sortingOrder = 10;//降低玩家层级
+            collision.gameObject.GetComponent<SpriteRenderer>().sortingOrder = 5;//降低玩家层级  不能是10
         }
 
 
