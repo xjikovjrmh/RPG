@@ -6,41 +6,42 @@ public class Player_Combat : MonoBehaviour
 {
     // Start is called before the first frame update
     public Transform attackPoint;
-    public float weaponRange=1;
-    public float knockbackForce=50;
-    public float knockbackTime =0.15f;
-    public float stunTime=0.3f;
+    public float weaponRange = 1;
+    public float knockbackForce = 50;
+    public float knockbackTime = 0.15f;
+    public float stunTime = 0.3f;
     public LayerMask enemyLayer;
-    public int damage=1;
+    public int damage = 1;
 
 
     public Animator anim;
-    public float cooldown =1;
+    public float cooldown = 1;
     private float timer;
 
     private void Update()
     {
         if (timer > 0)
         {
-            timer-=Time.deltaTime;
+            timer -= Time.deltaTime;
         }
     }
     public void Attack()
     {
-        if(timer<=0){
-        anim.SetBool("isAttacking", true);
-        //不要在这里调用DealDamage，   因为在进入攻击动画的一瞬间就会造成伤害，敌人销毁，所以让伤害处理延后， 添加公共方法，在动画事件里面调用
-        timer = cooldown;
+        if (timer <= 0)
+        {
+            anim.SetBool("isAttacking", true);
+            //不要在这里调用DealDamage，   因为在进入攻击动画的一瞬间就会造成伤害，敌人销毁，所以让伤害处理延后， 添加公共方法，在动画事件里面调用
+            timer = cooldown;
         }
     }
     public void DealDamage()//伤害处理
     {
-        Collider2D[] enemies =Physics2D.OverlapCircleAll(attackPoint.position, weaponRange, enemyLayer); //检测攻击范围内的所有敌人碰撞体
-            if (enemies.Length > 0)
-            {
-                enemies[0].GetComponent<Enemy_Health>().ChangeHealth(-damage);  //对第一个敌人碰撞体造成伤害 ,要对所有敌人造成伤害，需要foreach循环
-                enemies[0].GetComponent<Enemy_Knockback>().Knockback(transform,knockbackForce,knockbackTime,stunTime); //
-            }
+        Collider2D[] enemies = Physics2D.OverlapCircleAll(attackPoint.position, weaponRange, enemyLayer); //检测攻击范围内的所有敌人碰撞体
+        if (enemies.Length > 0)
+        {
+            enemies[0].GetComponent<Enemy_Health>().ChangeHealth(-damage);  //对第一个敌人碰撞体造成伤害 ,要对所有敌人造成伤害，需要foreach循环
+            enemies[0].GetComponent<Enemy_Knockback>().Knockback(transform, knockbackForce, knockbackTime, stunTime); //
+        }
     }
     public void StopAttack()
     {
@@ -49,9 +50,9 @@ public class Player_Combat : MonoBehaviour
     private void OnDrawGizmosSelected()//在编辑器中显示攻击范围
     {
         Gizmos.color = Color.red;
-        
+
         Gizmos.DrawWireSphere(attackPoint.position, weaponRange);
     }
 
-    
+
 }

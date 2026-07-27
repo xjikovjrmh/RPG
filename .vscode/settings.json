@@ -1,0 +1,53 @@
+{
+    // ===== C# 开发配置 =====
+    "dotnet.preferCSharpExtension": true,
+
+    // ===== 文件资源管理器隐藏 Unity 临时目录 =====
+    "files.exclude": {
+        "**/.git": true,
+        "**/[Ll]ibrary/": true,
+        "**/[Tt]emp/": true,
+        "**/[Oo]bj/": true,
+        "**/[Bb]uild/": true,
+        "**/[Bb]uilds/": true,
+        "**/[Ll]ogs/": true,
+        "**/[Uu]ser[Ss]ettings/": true,
+        "**/*.cs.meta": true
+    },
+
+    // ===== 文件监视排除（防卡顿） =====
+    "files.watcherExclude": {
+        "**/[Ll]ibrary/**": true,
+        "**/[Tt]emp/**": true,
+        "**/[Oo]bj/**": true,
+        "**/[Bb]uild/**": true,
+        "**/[Bb]uilds/**": true,
+        "**/[Ll]ogs/**": true
+    },
+
+    // ===== 搜索排除 =====
+    "search.exclude": {
+        "**/[Ll]ibrary/": true,
+        "**/[Tt]emp/": true,
+        "**/[Oo]bj/": true,
+        "**/[Bb]uild/": true,
+        "**/[Bb]uilds/": true,
+        "**/[Ll]ogs/": true
+    },
+
+    // ===== 保存时自动格式化 =====
+    "editor.formatOnSave": true,
+
+    // ===== C# 代码风格 =====
+    "[csharp]": {
+        "editor.defaultFormatter": "ms-dotnettools.csharp",
+        "editor.tabSize": 4,
+        "editor.insertSpaces": true
+    },
+
+    // ===== Unity 脚本模板相关 =====
+    "files.associations": {
+        "*.asmdef": "json",
+        "*.asmref": "json"
+    }
+}
