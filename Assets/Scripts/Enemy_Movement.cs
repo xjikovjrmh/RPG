@@ -1,0 +1,158 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Enemy_Movement : MonoBehaviour
+{
+    public float speed=4;
+    public float attackRange = 2;
+    public float attackCooldown =2;
+    public float playerDetectRange = 5;
+    public Transform detectPoint;
+    public LayerMask PlayerLayer;
+    
+
+    private float attackCooldownTimer = 0f;
+    private Rigidbody2D rb;
+    private int facingDirection = -1;  //初始面向右边 
+    private EnemyState enemyState; //枚举型变量，保存当前状态
+
+    
+    
+    private Transform player;
+    //private bool isChasing;  不需要了
+    private Animator anim;
+    
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+        rb= GetComponent<Rigidbody2D>();
+        anim=GetComponent<Animator>();
+        ChangeState(EnemyState.Idle);//放在动画机后，防止空引用
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+        if(enemyState!=EnemyState.Knockback)
+        {
+            CheckForPlayer();//处理攻击范围和追逐范围的逻辑，改变状态
+            if (attackCooldownTimer > 0)
+            {
+                attackCooldownTimer -= Time.deltaTime;
+            }
+
+            if (enemyState == EnemyState.Chasing)
+            {
+                Chase();
+            }
+            else if (enemyState == EnemyState.Attacking)
+            {
+                rb.velocity = Vector2.zero;//停止移动
+            }
+        }
+
+        
+
+    }
+    void Chase()
+    {
+        //进入攻击状态逻辑
+         
+        //转向
+        if ((player.position.x > transform.position.x && facingDirection == -1) || //玩家在右边，敌人面向左边
+                (player.position.x < transform.position.x && facingDirection == 1)) //玩家在左边，敌人面向右边
+        {
+            Flip();
+        }
+        
+
+
+        Vector2 direction = (player.position - transform.position).normalized;//归一化保证速度没问题
+
+        rb.velocity = direction * speed;
+    }
+    //Enter 只在玩家进入时触发一次，Stay 在玩家停留时每帧触发一次，Exit 在玩家离开时触发一次 ，这样玩家还在攻击范围内时，敌人不会停止移动
+
+    //重构方法，因为攻击冷却时间的存在，敌人不会在攻击范围内停止移动，而是继续追逐，无法进入攻击状态
+
+    private void CheckForPlayer()
+    {
+
+        Collider2D[] hits =Physics2D.OverlapCircleAll(detectPoint.position, playerDetectRange, PlayerLayer);// 这里已经处理了检测范围 进入检测范围才会处理攻击
+        if(hits.Length>0)
+        {
+           
+                player = hits[0].transform; //保存玩家的transform
+                //在这里检查                                                <2
+                if (Vector2.Distance(transform.position, player.position) <= attackRange && attackCooldownTimer <= 0)// 冷却完成
+                {
+                    attackCooldownTimer = attackCooldown; // 重置攻击冷却计时器
+                    ChangeState(EnemyState.Attacking);   //改变状态，之后在update里面处理                    changestate 不仅改变状态,动画机还好自动播放对应动画，不需要anim.play
+                                                                                  //这里是attackRange 处理攻击范围，
+                }else if (Vector2.Distance(transform.position, player.position) >= attackRange&&enemyState!=EnemyState.Attacking)//这里添加敌人状态的判断，防止敌人进入攻击状态后，玩家离开攻击范围，敌人又进入追逐状态，导致敌人一直在攻击动画和追逐动画之间切换
+                                                                                                                                //不用修改动画即可让敌人完成攻击后才切换追击
+                {
+                    ChangeState(EnemyState.Chasing);
+
+                }
+        }
+        else  //不需要OnTriggerExit2D了
+        {
+            rb.velocity = Vector2.zero;//停止移动 ，否则敌人一直匀速移动下去
+            ChangeState(EnemyState.Idle);
+        }
+    }
+  
+
+    void Flip()
+    {
+        facingDirection *= -1; //要改变这个
+        transform.localScale= new Vector3(facingDirection,transform.localScale.y,transform.localScale.z);
+    }
+
+    public void ChangeState(EnemyState newState)
+    {
+        //先退出旧的动画
+        if (enemyState == EnemyState.Idle)
+            anim.SetBool("isIdle", false);
+        else if(enemyState == EnemyState.Chasing)
+            anim.SetBool("isChasing", false);
+        else if (enemyState == EnemyState.Attacking)
+            anim.SetBool("isAttacking", false);
+        //update current state
+        enemyState = newState;
+        //update current animation
+        if (enemyState== EnemyState.Idle)
+            anim.SetBool("isIdle", true);
+        else if(enemyState == EnemyState.Chasing)
+            anim.SetBool("isChasing", true);
+        else if(enemyState == EnemyState.Attacking)
+            anim.SetBool("isAttacking", true);
+
+    }
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        if (detectPoint == null)
+            return;
+        Gizmos.color = Color.red;
+        //画圆
+        Gizmos.DrawWireSphere(detectPoint.position, playerDetectRange);
+    }
+
+
+}
+
+
+
+public enum EnemyState
+{
+    Idle,
+    Chasing,
+    Attacking,
+    Knockback,
+}

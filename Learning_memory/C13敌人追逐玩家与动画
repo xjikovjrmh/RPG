@@ -1,0 +1,156 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+![image-20260722094748272](C:\Users\Lenovo\AppData\Roaming\Typora\typora-user-images\image-20260722094748272.png)
+
+![image-20260722094832949](C:\Users\Lenovo\AppData\Roaming\Typora\typora-user-images\image-20260722094832949.png)
+
+在状态切到 Exit后都这样设置：
+
+ 取消勾选Has Exit Time   （当前动画必须**播放完整个片段**（或达到Exit Time百分比）才能切换到下一个状态） -> 立即终止
+
+Transition Duration 设为0  （大于0时两个动画之间会有**融合过渡**（比如0.1秒内从Idle渐变到Chasing））
+
+添加条件 isxxx 在false 时退出
+
+```csharp
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Enemy_Movement : MonoBehaviour
+{
+    public float speed=4;
+    private Rigidbody2D rb;
+    private int facingDirection = -1;  //初始面向左边
+    private EnemyState enemyState; //枚举型变量，保存当前状态
+
+    private Transform player;
+    //private bool isChasing;  不需要了
+    private Animator anim;
+    
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+        rb= GetComponent<Rigidbody2D>();
+        anim=GetComponent<Animator>();
+        ChangeState(EnemyState.Idle);//放在动画机后，防止空引用
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (enemyState == EnemyState.Chasing)
+        {
+            if(player.position.x > transform.position.x && facingDirection == -1 || player.position.x < transform.position.x && facingDirection == 1)//玩家在右边，敌人面向左边
+            {
+                Flip();
+            }
+            
+            Vector2 direction = (player.position - transform.position).normalized;//归一化保证速度没问题
+
+            rb.velocity = direction * speed;
+        }
+        
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))//也可以用 collision.gameObject.tag=="Player"
+        {
+            if(player == null)
+            {
+                player = collision.gameObject.transform;// 这样可以运行时加载玩家对象
+            }
+            
+            ChangeState(EnemyState.Chasing);//开始追逐
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            
+            rb.velocity = Vector2.zero;//停止移动 ，否则敌人一直匀速移动下去
+            ChangeState(EnemyState.Idle);//回到闲置状态
+        }
+    }
+
+    void Flip()
+    {
+        facingDirection *= -1; //要改变这个
+        transform.localScale= new Vector3(facingDirection,transform.localScale.y,transform.localScale.z);
+    }
+
+    void ChangeState(EnemyState newState)
+    {
+        //先退出旧的动画
+        if (enemyState == EnemyState.Idle)
+            anim.SetBool("isIdle", false);
+        else if(enemyState == EnemyState.Chasing)
+            anim.SetBool("isChasing", false);
+        //update current state
+        enemyState = newState;
+        //update current animation
+        if (enemyState== EnemyState.Idle)
+            anim.SetBool("isIdle", true);
+        else if(enemyState == EnemyState.Chasing)
+            anim.SetBool("isChasing", true);
+
+    }
+
+}
+
+
+
+public enum EnemyState
+{
+    Idle,
+    Chasing,
+}
+
+```
+
+敌人转向疯狂抽搐的原因： transform 里面localScale.x 是1 而facingDirection 是  -1  
+
+
+
+```csharp
+
+    if((player.position.x > transform.position.x && facingDirection == -1 ) || //玩家在右边，敌人面向左边
+    (player.position.x < transform.position.x && facingDirection == 1)) //玩家在左边，敌人面向右边   在这里敌人会错误切换朝向，始终不看向玩家
+{
+    Flip();
+}
+
+
+```
+
