@@ -4,15 +4,12 @@ using UnityEngine;
 
 public class Player_Combat : MonoBehaviour
 {
+
+    public StatusUI statusUI;
     // Start is called before the first frame update
     public Transform attackPoint;
-    public float weaponRange = 1;
-    public float knockbackForce = 50;
-    public float knockbackTime = 0.15f;
-    public float stunTime = 0.3f;
-    public LayerMask enemyLayer;
-    public int damage = 1;
 
+    public LayerMask enemyLayer;
 
     public Animator anim;
     public float cooldown = 1;
@@ -36,12 +33,15 @@ public class Player_Combat : MonoBehaviour
     }
     public void DealDamage()//伤害处理
     {
-        Collider2D[] enemies = Physics2D.OverlapCircleAll(attackPoint.position, weaponRange, enemyLayer); //检测攻击范围内的所有敌人碰撞体
+
+        Collider2D[] enemies = Physics2D.OverlapCircleAll(attackPoint.position, StatusManager.Instance.weaponRange, enemyLayer); //检测攻击范围内的所有敌人碰撞体
         if (enemies.Length > 0)
         {
-            enemies[0].GetComponent<Enemy_Health>().ChangeHealth(-damage);  //对第一个敌人碰撞体造成伤害 ,要对所有敌人造成伤害，需要foreach循环
-            enemies[0].GetComponent<Enemy_Knockback>().Knockback(transform, knockbackForce, knockbackTime, stunTime); //
+            enemies[0].GetComponent<Enemy_Health>().ChangeHealth(-StatusManager.Instance.damage);  //对第一个敌人碰撞体造成伤害 ,要对所有敌人造成伤害，需要foreach循环
+            enemies[0].GetComponent<Enemy_Knockback>().Knockback(transform, StatusManager.Instance.knockbackForce, StatusManager.Instance.knockbackTime, StatusManager.Instance.stunTime); //
         }
+        StatusManager.Instance.damage += 1;
+        // statusUI.UpdateAllstatus();
     }
     public void StopAttack()
     {
@@ -51,7 +51,7 @@ public class Player_Combat : MonoBehaviour
     {
         Gizmos.color = Color.red;
 
-        Gizmos.DrawWireSphere(attackPoint.position, weaponRange);
+        Gizmos.DrawWireSphere(attackPoint.position, StatusManager.Instance.weaponRange);
     }
 
 
