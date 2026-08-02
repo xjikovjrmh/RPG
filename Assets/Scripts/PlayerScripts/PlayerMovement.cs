@@ -16,8 +16,9 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()//获取输入反馈最快，
     {
-        if (Input.GetButtonDown("Slash")) //鼠标左键
+        if (Input.GetButtonDown("Slash") && player_Combat.enabled == true) // k //要添加攻击检查，防止锁定情况下攻击
         {
+
             player_Combat.Attack();
         }
     }

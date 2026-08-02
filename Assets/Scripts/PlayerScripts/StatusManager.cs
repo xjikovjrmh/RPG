@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class StatusManager : MonoBehaviour
 {
     public static StatusManager Instance;//数值管理器实例 唯一
-
+    public TMP_Text healthText;
 
     [Header("Combat Status")]
     public int damage;
@@ -31,6 +32,13 @@ public class StatusManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+    public void UpdateMaxHealth(int amount)
+    {
+        maxHealth += amount;
+        currentHealth = maxHealth; //更新最大生命值时，当前生命值也设置为最大生命值
+        healthText.text = "HP: " + currentHealth + "/" + maxHealth;//TMP 会自动更新文本显示
+
     }
 
 }

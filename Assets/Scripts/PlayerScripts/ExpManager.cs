@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -13,6 +14,9 @@ public class ExpManager : MonoBehaviour
 
     public Slider expSlider;
     public TMP_Text currentLevelText;
+
+    public static event Action<int> OnLevelUp; //定义一个事件，整数作为参数
+
     private void OnEnable()
     {//因为是公共的可以直接调用
         Enemy_Health.OnMonsterDefeated += GainExperience;
@@ -51,6 +55,7 @@ public class ExpManager : MonoBehaviour
         level++;
         currentExp -= expToLevel;
         expToLevel = Mathf.RoundToInt(expToLevel * expGrowthMultiplier);
+        OnLevelUp?.Invoke(1); // 触发等级提升事件
     }
     private void UpadteUI()
     {
