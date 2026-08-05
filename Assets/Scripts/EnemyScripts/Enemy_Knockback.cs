@@ -13,12 +13,12 @@ public class Enemy_Knockback : MonoBehaviour
         enemyMovement = GetComponent<Enemy_Movement>();
     }
     // Start is called before the first frame update
-    public void Knockback(Transform playerTransform, float force, float knockbacktime, float stuntime)
+    public void Knockback(Transform ForceTransform, float force, float knockbacktime, float stuntime)
     {
         enemyMovement.ChangeState(EnemyState.Knockback); //改变敌人状态为击退状态
         StartCoroutine(StunTimer(knockbacktime, stuntime));
 
-        Vector2 direction = (transform.position - playerTransform.position).normalized; //计算击退方向
+        Vector2 direction = (transform.position - ForceTransform.position).normalized; //计算击退方向
         rb.velocity = direction * force; //施加击退力
 
 

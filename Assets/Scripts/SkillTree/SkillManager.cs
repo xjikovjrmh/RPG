@@ -20,7 +20,7 @@ public class SkillManager : MonoBehaviour
         switch (skillName)
         {
             case "Max Health Boost":
-                StatusManager.Instance.UpdateMaxHealth(1);
+                StatusManager.Instance.UpdateMaxHealth(1);//调用StatusManager的UpdateMaxHealth方法，增加最大生命值
                 break;
             case "Sword Slash":
                 playerCombat.enabled = true;

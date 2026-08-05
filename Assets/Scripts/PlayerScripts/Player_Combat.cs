@@ -47,12 +47,15 @@ public class Player_Combat : MonoBehaviour
     {
         anim.SetBool("isAttacking", false);
     }
-    private void OnDrawGizmosSelected()//在编辑器中显示攻击范围
-    {
-        Gizmos.color = Color.red;
+    // private void OnDrawGizmosSelected()//在编辑器中显示攻击范围 ，此方法在游戏运行时不会被调用，只在编辑器中显示
+    // {
+    //     // 🔥 安全检查：如果 attackPoint 或 StatusManager.Instance 为空，直接返回
+    //     if (attackPoint == null) return;
+    //     if (StatusManager.Instance == null) return;
+    //     Gizmos.color = Color.red;
 
-        Gizmos.DrawWireSphere(attackPoint.position, StatusManager.Instance.weaponRange);
-    }
+    //     Gizmos.DrawWireSphere(attackPoint.position, StatusManager.Instance.weaponRange);
+    // }
 
 
 }

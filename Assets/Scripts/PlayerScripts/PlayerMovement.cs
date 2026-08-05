@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
     public Animator anim; //动画控制器
 
     private bool isKonckedBack;
+    public bool isShooting;
 
     public Player_Combat player_Combat;//与攻击脚本通信， 处理移动到攻击的过渡
 
@@ -27,7 +28,11 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()  //改成fixedUpdate，每秒50次，保证物理效果的稳定性
     {
-        if (isKonckedBack == false)  //如果被击退，则不处理移动逻辑
+        if (isShooting == true) //如果在射击， 也不处理移动    当然，需要切换bool变量开关，当射击完成后 变化，这需要与player_Bow通信
+        {
+            rb.velocity = Vector2.zero;
+        }
+        else if (isKonckedBack == false)  //如果被击退，则不处理移动逻辑
         {
             float horizontal = Input.GetAxis("Horizontal");//水平 监听左右 ad 键
             float vertical = Input.GetAxis("Vertical");

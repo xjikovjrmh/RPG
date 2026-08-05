@@ -1,0 +1,94 @@
+动画制作错误： 要在需要被复制的帧ctrl +c 然后  时间拖到要复制去的帧ctrl+v （做不同动画不能直接ctrl +v） 
+
+做弓箭手 Animator 删除自动生成的动画
+
+![image-20260805151618495](C:\Users\Lenovo\AppData\Roaming\Typora\typora-user-images\image-20260805151618495.png)
+
+添加entry 到 shoot   shoot 到 exit的过渡，  exit 的设置有些不同， 要设置退出时间，保证动画播完           添加entry到Idle 的过渡条件（要同时满足）
+
+![image-20260805154607693](C:\Users\Lenovo\AppData\Roaming\Typora\typora-user-images\image-20260805154607693.png)
+
+![image-20260805151814280](C:\Users\Lenovo\AppData\Roaming\Typora\typora-user-images\image-20260805151814280.png)
+
+
+
+为idle ，walking 到 exit 多加一条过渡， 当isshooting ==true 时 也退出
+
+
+
+
+
+添加弓箭手图层  Sync 勾选 ，将会同步 骑士的动画布局 ，自行放入对应弓箭手的动画
+
+![image-20260805152408044](C:\Users\Lenovo\AppData\Roaming\Typora\typora-user-images\image-20260805152408044.png)
+
+对混合树新建
+
+
+
+![image-20260805152825976](C:\Users\Lenovo\AppData\Roaming\Typora\typora-user-images\image-20260805152825976.png)
+
+
+
+添加2个浮点树![image-20260805153214572](C:\Users\Lenovo\AppData\Roaming\Typora\typora-user-images\image-20260805153214572.png)选择这个模式 ，参数换成这两个 aimY 显示NaN不能动 只要填一个数字即可
+
+![image-20260805153320982](C:\Users\Lenovo\AppData\Roaming\Typora\typora-user-images\image-20260805153320982.png)添加8个Motion Field
+
+
+
+
+
+解决动画时机，在动画射箭帧出添加事件调用方法，而不是通过Input来调用
+
+
+
+优化部分 1.箭矢碰撞  只在箭矢前端添加碰撞![image-20260805160058838](C:\Users\Lenovo\AppData\Roaming\Typora\typora-user-images\image-20260805160058838.png)
+
+
+
+2.对角线射击多次：
+
+| 输入情况                | 发生了什么                                                   |
+| :---------------------- | :----------------------------------------------------------- |
+| **正方向（水平/垂直）** | `HandleAiming()` 只设置一次 `aimX/aimY`，输入稳定 → 只触发一次射击 |
+| **对角线（如右上）**    | `HandleAiming()` 中 `horizontal` 和 `vertical` 同时不为 0，`aimDirection` 更新为 `(0.7, 0.7)`。**但在同一个 Update 帧中，`GetAxisRaw` 可能返回不同的值（因为键盘同时按下两个键，存在微小的输入抖动），导致 `aimDirection` 发生变化，进而让 `Input.GetButtonDown` 被重新判定为按下！** |
+
+更根本的原因是：
+
+- 你的 `shootTimer` 是在 `Shoot()` 里才被重置的（`shootTimer = shootCooldown`）。
+
+- 但在动画播放期间，`shootTimer` 还没有被重置（因为动画帧事件还没触发）。 还是<0 的情况
+
+  ```csharp
+  if (Input.GetButtonDown("Shoot") && shootTimer <= 0)  成立，再次进入射击动画
+          {
+              anim.SetBool("isShooting", true);
+              // Shoot();
+          }
+          
+          
+          
+          在动画帧里面调用 shoot后 检测 shootTimer 如果小于0 ，立即重置冷却，这样只有第一个箭可以射出，后面即使再进入射击动画也不会实例化箭
+          public void Shoot()
+      {
+          if (shootTimer <= 0)
+          {
+              //存储箭矢脚本的引用，可直接修改变量
+              Arrow arrow = Instantiate(arrowPrefab, launchPoint.position, Quaternion.identity).GetComponent<Arrow>();//Quaternion.identity表示没有旋转，箭矢的方向由箭矢自身的脚本控制
+              arrow.direction = aimDirection;
+              shootTimer = shootCooldown; //重置射击计时器
+          }
+          anim.SetBool("isShooting", false);
+      }
+  ```
+
+  
+
+- 如果玩家在对角线方向上快速反复输入，`Update()` 中的 `if (Input.GetButtonDown("Shoot") && shootTimer <= 0)` 会在同一个极短的时间窗口内被多次触发（因为 `shootTimer` 还没来得及更新），导致**动画被多次触发**，从而射出多只箭。
+
+添加 装备切换
+
+
+
+添加射击状态移速变化
+
