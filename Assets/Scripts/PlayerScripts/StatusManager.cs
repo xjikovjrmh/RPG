@@ -5,6 +5,7 @@ using TMPro;
 
 public class StatusManager : MonoBehaviour
 {
+    public StatusUI statusUI;
     public static StatusManager Instance;//数值管理器实例 唯一
     public TMP_Text healthText;
 
@@ -36,9 +37,22 @@ public class StatusManager : MonoBehaviour
     public void UpdateMaxHealth(int amount)
     {
         maxHealth += amount;
-        currentHealth = maxHealth; //更新最大生命值时，当前生命值也设置为最大生命值
+        // currentHealth = maxHealth; //更新最大生命值时，当前生命值也设置为最大生命值
         healthText.text = "HP: " + currentHealth + "/" + maxHealth;//TMP 会自动更新文本显示
 
     }
+    public void UpdateHealth(int amount)
+    {
+        currentHealth += amount;
+        if (currentHealth >= maxHealth)
+            currentHealth = maxHealth;
+        healthText.text = "HP: " + currentHealth + "/" + maxHealth;//TMP 会自动更新文本显示
 
+    }
+    public void UpdateSpeed(int amount)
+    {
+        speed += amount;
+        statusUI.UpdateAllstatus();
+
+    }
 }

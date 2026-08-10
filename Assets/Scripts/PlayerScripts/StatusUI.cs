@@ -20,6 +20,7 @@ public class StatusUI : MonoBehaviour
                 Time.timeScale = 1;
                 UpdateAllstatus();
                 statusCanvas.alpha = 0;//透明
+                statusCanvas.blocksRaycasts = false;//关闭阻挡射线投射
                 statsOpen = false;
             }
             else                  //打开
@@ -27,6 +28,7 @@ public class StatusUI : MonoBehaviour
                 Time.timeScale = 0;
                 UpdateAllstatus();
                 statusCanvas.alpha = 1;
+                statusCanvas.blocksRaycasts = true;
                 statsOpen = true;
             }
         }

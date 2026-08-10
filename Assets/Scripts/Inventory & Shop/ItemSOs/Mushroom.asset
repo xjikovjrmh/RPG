@@ -16,8 +16,8 @@ MonoBehaviour:
   itemDescription: it`s an item... it mushes??
   Icon: {fileID: 21300000, guid: 40b85f9502773f140867e2082aedd615, type: 3}
   isGold: 0
-  CurrentHealth: 0
-  MaxHealth: 0
-  Speed: 0
-  Damage: 0
-  Duration: 0
+  currentHealth: 2
+  maxHealth: 0
+  speed: 0
+  damage: 0
+  duration: 0

@@ -11,14 +11,15 @@ public class ItemSO : ScriptableObject
     public Sprite Icon;
 
     public bool isGold;
+    public int statckSize = 3;//堆叠上限
     [Header("Status")]
 
-    public int CurrentHealth;
-    public int MaxHealth;
-    public int Speed;
-    public int Damage;
+    public int currentHealth;
+    public int maxHealth;
+    public int speed;
+    public int damage;
     [Header("For Temporary Items")]
-    public float Duration;
+    public float duration;
 
 
 }
