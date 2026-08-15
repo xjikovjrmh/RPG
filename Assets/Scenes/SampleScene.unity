@@ -851,6 +851,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: StatText (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 1598288445469920349, guid: d90ab218401916f49acd11eaa4f8afa1, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2745353814696394674, guid: d90ab218401916f49acd11eaa4f8afa1, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2759,7 +2763,7 @@ Tilemap:
       - {fileID: 295713264, guid: 1411b1eb32aa76840bc44e4c64808232, type: 3}
       - {fileID: 1564001958, guid: 1411b1eb32aa76840bc44e4c64808232, type: 3}
       - {fileID: -553972340, guid: 1411b1eb32aa76840bc44e4c64808232, type: 3}
-      m_AnimationSpeed: 5
+      m_AnimationSpeed: 5.0000005
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 23, y: -12, z: 0}
@@ -13298,14 +13302,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'stuff about the item
-
-    stuff about the item
-
-    stuff about the item
-
-
-'
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
@@ -13497,6 +13494,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1354090508}
     m_Modifications:
+    - target: {fileID: 2717105224405736166, guid: d070807bc45ca7d4596fd2eeaacf9f68, type: 3}
+      propertyPath: shopInfo
+      value: 
+      objectReference: {fileID: 754379856}
+    - target: {fileID: 2717105224405736166, guid: d070807bc45ca7d4596fd2eeaacf9f68, type: 3}
+      propertyPath: shopManager
+      value: 
+      objectReference: {fileID: 500190875}
     - target: {fileID: 3986204776276854467, guid: d070807bc45ca7d4596fd2eeaacf9f68, type: 3}
       propertyPath: m_Name
       value: ShopSlot (5)
@@ -13956,6 +13961,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1354090508}
     m_Modifications:
+    - target: {fileID: 2717105224405736166, guid: d070807bc45ca7d4596fd2eeaacf9f68, type: 3}
+      propertyPath: shopInfo
+      value: 
+      objectReference: {fileID: 754379856}
+    - target: {fileID: 2717105224405736166, guid: d070807bc45ca7d4596fd2eeaacf9f68, type: 3}
+      propertyPath: shopManager
+      value: 
+      objectReference: {fileID: 500190875}
     - target: {fileID: 3986204776276854467, guid: d070807bc45ca7d4596fd2eeaacf9f68, type: 3}
       propertyPath: m_Name
       value: ShopSlot (4)
@@ -14074,6 +14087,7 @@ GameObject:
   - component: {fileID: 500190871}
   - component: {fileID: 500190870}
   - component: {fileID: 500190874}
+  - component: {fileID: 500190875}
   m_Layer: 5
   m_Name: ShopCanvas
   m_TagString: Untagged
@@ -14176,6 +14190,35 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &500190875
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 500190869}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3dc4736b77e1f42908e5804786283b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shopItems:
+  - itemSO: {fileID: 11400000, guid: 258da40228b64394b85b71536be86c7a, type: 2}
+    price: 2
+  - itemSO: {fileID: 11400000, guid: 384ece48ac9c5e844b12464b5769ef74, type: 2}
+    price: 2
+  - itemSO: {fileID: 11400000, guid: 6e3f7ca9f218e0f4a904798afe9b8814, type: 2}
+    price: 4
+  shopSlots:
+  - {fileID: 15416117982030818}
+  - {fileID: 764977944}
+  - {fileID: 856109486}
+  - {fileID: 1543348084}
+  - {fileID: 499669864}
+  - {fileID: 389858800}
+  - {fileID: 1857918852}
+  - {fileID: 1148703055}
+  inventoryManager: {fileID: 549035058}
 --- !u!1 &502678022
 GameObject:
   m_ObjectHideFlags: 0
@@ -14708,7 +14751,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff88d9f770b7e2549a72bc3817a21637, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gold: 0
+  gold: 10
   goldText: {fileID: 840918933}
   itemSlots:
   - {fileID: 1105556660}
@@ -17164,6 +17207,7 @@ GameObject:
   - component: {fileID: 754379854}
   - component: {fileID: 754379853}
   - component: {fileID: 754379855}
+  - component: {fileID: 754379856}
   m_Layer: 5
   m_Name: InfoPopup
   m_TagString: Untagged
@@ -17190,9 +17234,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -643, y: -331}
+  m_AnchoredPosition: {x: -871, y: -101}
   m_SizeDelta: {x: 400, y: 360}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 1}
 --- !u!114 &754379853
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17239,10 +17283,32 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 754379851}
   m_Enabled: 1
-  m_Alpha: 1
+  m_Alpha: 0
   m_Interactable: 0
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
+--- !u!114 &754379856
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 754379851}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a5dc28faacfb244b8820860183f5d2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  infoPanel: {fileID: 754379855}
+  itemNameText: {fileID: 98724321}
+  itemDescription: {fileID: 313139954}
+  statTexts:
+  - {fileID: 1404168789}
+  - {fileID: 1850573565}
+  - {fileID: 1670530993}
+  - {fileID: 1785032313}
+  - {fileID: 1266491577}
+  - {fileID: 1806920594}
 --- !u!1001 &761156558
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17389,6 +17455,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1354090508}
     m_Modifications:
+    - target: {fileID: 2717105224405736166, guid: d070807bc45ca7d4596fd2eeaacf9f68, type: 3}
+      propertyPath: shopInfo
+      value: 
+      objectReference: {fileID: 754379856}
+    - target: {fileID: 2717105224405736166, guid: d070807bc45ca7d4596fd2eeaacf9f68, type: 3}
+      propertyPath: shopManager
+      value: 
+      objectReference: {fileID: 500190875}
     - target: {fileID: 3986204776276854467, guid: d070807bc45ca7d4596fd2eeaacf9f68, type: 3}
       propertyPath: m_Name
       value: ShopSlot (1)
@@ -18527,6 +18601,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1354090508}
     m_Modifications:
+    - target: {fileID: 2717105224405736166, guid: d070807bc45ca7d4596fd2eeaacf9f68, type: 3}
+      propertyPath: shopInfo
+      value: 
+      objectReference: {fileID: 754379856}
+    - target: {fileID: 2717105224405736166, guid: d070807bc45ca7d4596fd2eeaacf9f68, type: 3}
+      propertyPath: shopManager
+      value: 
+      objectReference: {fileID: 500190875}
     - target: {fileID: 3986204776276854467, guid: d070807bc45ca7d4596fd2eeaacf9f68, type: 3}
       propertyPath: m_Name
       value: ShopSlot (2)
@@ -19494,6 +19576,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: StatText (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 1598288445469920349, guid: d90ab218401916f49acd11eaa4f8afa1, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2745353814696394674, guid: d90ab218401916f49acd11eaa4f8afa1, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -20139,6 +20225,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1354090508}
     m_Modifications:
+    - target: {fileID: 2717105224405736166, guid: d070807bc45ca7d4596fd2eeaacf9f68, type: 3}
+      propertyPath: shopInfo
+      value: 
+      objectReference: {fileID: 754379856}
+    - target: {fileID: 2717105224405736166, guid: d070807bc45ca7d4596fd2eeaacf9f68, type: 3}
+      propertyPath: shopManager
+      value: 
+      objectReference: {fileID: 500190875}
     - target: {fileID: 3986204776276854467, guid: d070807bc45ca7d4596fd2eeaacf9f68, type: 3}
       propertyPath: m_Name
       value: ShopSlot (7)
@@ -21598,7 +21692,7 @@ Tilemap:
       - {fileID: 1746944018, guid: 0775c315273304e489dd677ce8e885a5, type: 3}
       - {fileID: 1729895985, guid: 0775c315273304e489dd677ce8e885a5, type: 3}
       - {fileID: -705739446, guid: 0775c315273304e489dd677ce8e885a5, type: 3}
-      m_AnimationSpeed: 5
+      m_AnimationSpeed: 5.0000005
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 26, y: -11, z: 0}
@@ -22033,7 +22127,7 @@ Tilemap:
       - {fileID: 1746944018, guid: 0775c315273304e489dd677ce8e885a5, type: 3}
       - {fileID: 1729895985, guid: 0775c315273304e489dd677ce8e885a5, type: 3}
       - {fileID: -705739446, guid: 0775c315273304e489dd677ce8e885a5, type: 3}
-      m_AnimationSpeed: 5
+      m_AnimationSpeed: 5.0000005
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 56, y: -9, z: 0}
@@ -22318,7 +22412,7 @@ Tilemap:
       - {fileID: 119804652, guid: 0775c315273304e489dd677ce8e885a5, type: 3}
       - {fileID: 1683178282, guid: 0775c315273304e489dd677ce8e885a5, type: 3}
       - {fileID: 1678866915, guid: 0775c315273304e489dd677ce8e885a5, type: 3}
-      m_AnimationSpeed: 5
+      m_AnimationSpeed: 5.0000005
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 21, y: 0, z: 0}
@@ -22933,7 +23027,7 @@ Tilemap:
       - {fileID: -878425818, guid: 0775c315273304e489dd677ce8e885a5, type: 3}
       - {fileID: -1676734317, guid: 0775c315273304e489dd677ce8e885a5, type: 3}
       - {fileID: 1414507544, guid: 0775c315273304e489dd677ce8e885a5, type: 3}
-      m_AnimationSpeed: 5.0000005
+      m_AnimationSpeed: 5
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 43, y: 8, z: 0}
@@ -23222,6 +23316,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: StatText (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 1598288445469920349, guid: d90ab218401916f49acd11eaa4f8afa1, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2745353814696394674, guid: d90ab218401916f49acd11eaa4f8afa1, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -23312,6 +23410,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2745353814696394674, guid: d90ab218401916f49acd11eaa4f8afa1, type: 3}
   m_PrefabInstance: {fileID: 1266491575}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1266491577 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8560934103671291185, guid: d90ab218401916f49acd11eaa4f8afa1, type: 3}
+  m_PrefabInstance: {fileID: 1266491575}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1286533357
 GameObject:
   m_ObjectHideFlags: 0
@@ -25232,6 +25341,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2745353814696394674, guid: d90ab218401916f49acd11eaa4f8afa1, type: 3}
   m_PrefabInstance: {fileID: 7140668274333607656}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1404168789 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8560934103671291185, guid: d90ab218401916f49acd11eaa4f8afa1, type: 3}
+  m_PrefabInstance: {fileID: 7140668274333607656}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1409429247
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -26714,6 +26834,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1354090508}
     m_Modifications:
+    - target: {fileID: 2717105224405736166, guid: d070807bc45ca7d4596fd2eeaacf9f68, type: 3}
+      propertyPath: shopInfo
+      value: 
+      objectReference: {fileID: 754379856}
+    - target: {fileID: 2717105224405736166, guid: d070807bc45ca7d4596fd2eeaacf9f68, type: 3}
+      propertyPath: shopManager
+      value: 
+      objectReference: {fileID: 500190875}
     - target: {fileID: 3986204776276854467, guid: d070807bc45ca7d4596fd2eeaacf9f68, type: 3}
       propertyPath: m_Name
       value: ShopSlot (3)
@@ -26978,7 +27106,6 @@ GameObject:
   - component: {fileID: 1606572294}
   - component: {fileID: 1606572296}
   - component: {fileID: 1606572295}
-  - component: {fileID: 1606572297}
   m_Layer: 5
   m_Name: ShopPanel
   m_TagString: Untagged
@@ -27046,34 +27173,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1606572293}
   m_CullTransparentMesh: 1
---- !u!114 &1606572297
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1606572293}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e3dc4736b77e1f42908e5804786283b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shopItems:
-  - itemSO: {fileID: 11400000, guid: 258da40228b64394b85b71536be86c7a, type: 2}
-    price: 2
-  - itemSO: {fileID: 11400000, guid: 384ece48ac9c5e844b12464b5769ef74, type: 2}
-    price: 2
-  - itemSO: {fileID: 11400000, guid: 6e3f7ca9f218e0f4a904798afe9b8814, type: 2}
-    price: 4
-  shopSlots:
-  - {fileID: 15416117982030818}
-  - {fileID: 764977944}
-  - {fileID: 856109486}
-  - {fileID: 1543348084}
-  - {fileID: 499669864}
-  - {fileID: 389858800}
-  - {fileID: 1857918852}
-  - {fileID: 1148703055}
 --- !u!1001 &1645329160
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -27386,6 +27485,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: StatText (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 1598288445469920349, guid: d90ab218401916f49acd11eaa4f8afa1, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2745353814696394674, guid: d90ab218401916f49acd11eaa4f8afa1, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -27476,6 +27579,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2745353814696394674, guid: d90ab218401916f49acd11eaa4f8afa1, type: 3}
   m_PrefabInstance: {fileID: 1670530991}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1670530993 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8560934103671291185, guid: d90ab218401916f49acd11eaa4f8afa1, type: 3}
+  m_PrefabInstance: {fileID: 1670530991}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1698701418 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7453380507197100861, guid: b9574aa23a98d7b4382dc2979feb24e5, type: 3}
@@ -27805,6 +27919,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1783106028}
   m_CullTransparentMesh: 1
+--- !u!114 &1785032313 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8560934103671291185, guid: d90ab218401916f49acd11eaa4f8afa1, type: 3}
+  m_PrefabInstance: {fileID: 1006762104}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1790887518
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -27816,6 +27941,10 @@ PrefabInstance:
     - target: {fileID: 1598288445469920349, guid: d90ab218401916f49acd11eaa4f8afa1, type: 3}
       propertyPath: m_Name
       value: StatText (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1598288445469920349, guid: d90ab218401916f49acd11eaa4f8afa1, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2745353814696394674, guid: d90ab218401916f49acd11eaa4f8afa1, type: 3}
       propertyPath: m_Pivot.x
@@ -27907,6 +28036,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2745353814696394674, guid: d90ab218401916f49acd11eaa4f8afa1, type: 3}
   m_PrefabInstance: {fileID: 1790887518}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1806920594 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8560934103671291185, guid: d90ab218401916f49acd11eaa4f8afa1, type: 3}
+  m_PrefabInstance: {fileID: 169898155}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1807484271
 GameObject:
   m_ObjectHideFlags: 0
@@ -28281,6 +28421,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87768ef67bcad8f49ad647412c4a5500, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1850573565 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8560934103671291185, guid: d90ab218401916f49acd11eaa4f8afa1, type: 3}
+  m_PrefabInstance: {fileID: 1790887518}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1857918850
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -28289,6 +28440,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1354090508}
     m_Modifications:
+    - target: {fileID: 2717105224405736166, guid: d070807bc45ca7d4596fd2eeaacf9f68, type: 3}
+      propertyPath: shopInfo
+      value: 
+      objectReference: {fileID: 754379856}
+    - target: {fileID: 2717105224405736166, guid: d070807bc45ca7d4596fd2eeaacf9f68, type: 3}
+      propertyPath: shopManager
+      value: 
+      objectReference: {fileID: 500190875}
     - target: {fileID: 3986204776276854467, guid: d070807bc45ca7d4596fd2eeaacf9f68, type: 3}
       propertyPath: m_Name
       value: ShopSlot (6)
@@ -30290,7 +30449,7 @@ Tilemap:
       - {fileID: 1755585685, guid: 10ee05fe104ecf3448072890e7c62dc1, type: 3}
       - {fileID: -434329989, guid: 10ee05fe104ecf3448072890e7c62dc1, type: 3}
       - {fileID: -1118701897, guid: 10ee05fe104ecf3448072890e7c62dc1, type: 3}
-      m_AnimationSpeed: 5
+      m_AnimationSpeed: 5.0000005
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: -5, y: -4, z: 0}
@@ -31039,6 +31198,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1354090508}
     m_Modifications:
+    - target: {fileID: 2717105224405736166, guid: d070807bc45ca7d4596fd2eeaacf9f68, type: 3}
+      propertyPath: shopInfo
+      value: 
+      objectReference: {fileID: 754379856}
+    - target: {fileID: 2717105224405736166, guid: d070807bc45ca7d4596fd2eeaacf9f68, type: 3}
+      propertyPath: shopManager
+      value: 
+      objectReference: {fileID: 500190875}
     - target: {fileID: 3986204776276854467, guid: d070807bc45ca7d4596fd2eeaacf9f68, type: 3}
       propertyPath: m_Name
       value: ShopSlot
@@ -31434,6 +31601,10 @@ PrefabInstance:
     - target: {fileID: 1598288445469920349, guid: d90ab218401916f49acd11eaa4f8afa1, type: 3}
       propertyPath: m_Name
       value: StatText
+      objectReference: {fileID: 0}
+    - target: {fileID: 1598288445469920349, guid: d90ab218401916f49acd11eaa4f8afa1, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2745353814696394674, guid: d90ab218401916f49acd11eaa4f8afa1, type: 3}
       propertyPath: m_Pivot.x
