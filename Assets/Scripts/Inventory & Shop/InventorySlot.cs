@@ -20,11 +20,12 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler
     }
     private void OnEnable()//漏写字母
     {
-        ShopManager.OnShopStateChanged += HandleShopStateChanged;
+        //修改为商人，该事件由商人发送
+        ShopKeeper.OnShopStateChanged += HandleShopStateChanged;
     }
     private void OnDisable()
     {
-        ShopManager.OnShopStateChanged -= HandleShopStateChanged;
+        ShopKeeper.OnShopStateChanged -= HandleShopStateChanged;
     }
     private void HandleShopStateChanged(ShopManager shopManager, bool isOpen)
     {

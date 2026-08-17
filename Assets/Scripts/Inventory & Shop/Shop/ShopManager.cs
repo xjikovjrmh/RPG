@@ -5,18 +5,15 @@ using UnityEngine;
 
 public class ShopManager : MonoBehaviour
 {
-    public static event Action<ShopManager, bool> OnShopStateChanged;
+
     //使用serializeField  +private 只在内部使用，但同时可以在inspector赋值修改
+    //在这里通过inspector面板修改售卖的物品与价格
     [SerializeField] private List<ShopItems> shopItems;//列表可变长，每个商人可卖的东西不一定是8个
     [SerializeField] private ShopSlot[] shopSlots;// 用数组，固定
 
     [SerializeField] private InventoryManager inventoryManager;//库存管理器引用，检查是否有足够的金币
-    private void Start()
-    {
-        PopulateShopItems();
-        OnShopStateChanged?.Invoke(this, true);
-    }
-    public void PopulateShopItems()
+
+    public void PopulateShopItems(List<ShopItems> shopItems)
     {
         for (int i = 0; i < shopItems.Count && i < shopSlots.Length; i++)
         {
@@ -76,10 +73,12 @@ public class ShopManager : MonoBehaviour
     }
 
     //  ShopItems 是一个自定义类，不是 MonoBehaviour，如果不加 [System.Serializable]，Unity 根本不知道怎样在 Inspector 里显示它，也不知道怎样保存它的数据。
-    [System.Serializable]
-    public class ShopItems
-    {
-        public ItemSO itemSO;
-        public int price;
-    }
+
+}
+//要在ShopManager命名空间外
+[System.Serializable]
+public class ShopItems
+{
+    public ItemSO itemSO;
+    public int price;
 }
